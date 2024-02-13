@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { fetchTodos } from "../api/todos";
+import TodoCard from "../components/Card/TodoCard";
 
 const Home = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
+  //   const [serverError, setServerError] = useState("");
 
   useEffect(() => {
     const loadTodos = async () => {
@@ -10,19 +12,26 @@ const Home = () => {
         const fetchedTodos = await fetchTodos();
         setTodos(fetchedTodos);
       } catch (err) {
-        console.log(err);
+        // setServerError(err);
       }
     };
     loadTodos();
-  }, []);
+  }, [todos]);
+
+  const handleSubmit = () => {
+    console.log("Form Submitted");
+  };
+
   return (
     <div>
       {todos.map((todo) => (
-        <div>
-          <div key={todo.id}></div>
-          <h1 className="text-blue-500 p-2">{todo.title}</h1>
-          <p>{todo.completed ? "Completed" : "Not Completed"}</p>
-        </div>
+        // <TodoCard props={todo} />
+        <TodoCard
+          key={todo.id}
+          title={todo.title}
+          completed={todo.completed}
+          onSubmit={handleSubmit}
+        />
       ))}
     </div>
   );

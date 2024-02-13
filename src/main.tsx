@@ -6,21 +6,39 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import Layout from "./components/Layout";
+import UpComing from "./components/UpComing";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <Layout />,
     errorElement: <NotFound />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/upcoming",
+        element: <UpComing />,
+      },
+    ],
   },
   {
-    path: "/about",
-    element: <About />,
+    path: "/login",
+    element: <Login />,
   },
-  // {
-  //   path: "/movies/:id",
-  //   element: <MovieDetail />,
-  // },
+  {
+    path: "/signup",
+    element: <SignUp />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
